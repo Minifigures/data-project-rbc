@@ -1,0 +1,39 @@
+# ClaimGuard runtime dependencies (Python 3.11+/3.12).
+# Each pin has a reason, see README "Tech stack" for the full rationale.
+
+# --- Data handling ---
+pandas>=2.1,<3          # tabular claims data
+numpy>=1.26,<3          # numerics under pandas / scikit-learn
+pyarrow>=14             # parquet read/write (columnar, S3-friendly store format)
+
+# --- Schema + validation ---
+pydantic>=2.6,<3        # typed claim contracts and request/response models
+PyYAML>=6               # rule policy-as-code (fraud_policy.yaml)
+
+# --- Machine learning ---
+scikit-learn>=1.4       # IsolationForest (unsupervised), LogisticRegression / GradientBoosting (supervised baseline)
+imbalanced-learn>=0.12  # SMOTE / class weighting for heavy fraud class imbalance
+joblib>=1.3             # model persistence
+
+# --- API ---
+fastapi>=0.110          # claim-scoring + review-queue endpoints
+uvicorn[standard]>=0.29 # ASGI server
+python-multipart>=0.0.9 # form / file uploads to the API
+
+# --- Reviewer dashboard ---
+streamlit>=1.33         # human-in-the-loop triage UI
+plotly>=5.20            # score gauges and charts in the dashboard
+
+# --- MLOps / experiment tracking ---
+mlflow>=2.12            # track models, params, thresholds, metrics
+
+# --- Open-source dataset loader (optional path; falls back to synthetic) ---
+kagglehub>=0.2          # pull the open dataset when a Kaggle token exists
+requests>=2.31          # public-mirror fallback download
+
+# --- AWS-ready (works against real AWS or LocalStack) ---
+boto3>=1.34             # S3 + DynamoDB clients for the Lambda-ready pipeline
+
+# --- Optional LLM layer (document field extraction + plain-language rationale) ---
+# Kept OUT of the numeric score so scoring stays deterministic and auditable.
+anthropic>=0.25         # only used if ANTHROPIC_API_KEY is set

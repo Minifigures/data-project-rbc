@@ -1,0 +1,55 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# --- Data & ML artifacts (regenerated locally, never commit) ---
+/data/
+*.sqlite
+*.sqlite3
+*.db
+*.parquet
+/models/
+*.joblib
+/mlruns/
+/mlartifacts/
+*.log
+
+# --- Secrets / credentials ---
+.env
+.env.*
+!.env.example
+*.pem
+kaggle.json
+.aws/
+
+# --- Private internal docs (NEVER commit to a public repo) ---
+# Product strategy, interview rehearsal notes, and the AWS deploy handoff.
+PRD.pdf
+PRD.md
+INTERVIEW_NOTES.md
+AWS_COWORK_HANDOFF.md
+docs/PRD*
+docs/DEMO*
+docs/REHEARSAL*
+docs/HANDOFF*
+docs/INTERNAL*
+
+# --- OS / editor cruft ---
+.DS_Store
+desktop.ini
+.idea/
+.vscode/
+
+# Interview-prep research artefact: keep private
+research_notes.md

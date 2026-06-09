@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-DEMO-CLEAN",
+  "claimant_id": "MBR-00099",
+  "provider_id": "PRV-013",
+  "provider_specialty": "General Practice",
+  "claim_type": "medical",
+  "procedure_code": "GP-101",
+  "diagnosis_code": "J06.9",
+  "units": 1,
+  "billed_amount": 46.0,
+  "allowed_amount": 45.0,
+  "date_of_service": "2025-05-02",
+  "date_submitted": "2025-05-06",
+  "place_of_service": "clinic",
+  "region": "ON"
+}

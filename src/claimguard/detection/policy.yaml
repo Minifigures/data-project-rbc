@@ -1,0 +1,98 @@
+# ClaimGuard rule policy (policy-as-code).
+#
+# Every rule below contributes points to a 0-100 fraud score. The score is
+# deterministic and fully explainable: each triggered rule returns its points
+# and a plain-language reason, and the points sum (capped at 100) to the score.
+#
+# Weights are owned here, not in code, so a fraud analyst or domain expert can
+# tune them without a developer, and every change is visible in version control.
+# Each weight is justified against an NHCAA / CHCAA fraud typology.
+
+version: 1
+score_cap: 100
+
+# Band thresholds drive the triage decision (used by the API / dashboard).
+bands:
+  low: 0        # 0-39   auto-pass, routine
+  review: 40    # 40-69  send to human review queue
+  high: 70      # 70-100 priority investigation
+
+rules:
+  # Standalone-strong rules: a single one of these is enough to route a claim to
+  # a human (>= the review band of 40). Modifier rules below only add context.
+
+  - id: temporal_impossible
+    description: "Service date is after the submission date, which cannot happen for a real service."
+    typology: impossible_sequence
+    weight: 70   # a hard impossibility: fraud or a serious data error, escalate
+    condition:
+      feature: is_temporal_impossible
+      op: is_true
+
+  - id: duplicate_claim
+    description: "Same member, provider, procedure, and service date already billed (double billing)."
+    typology: duplicate_billing
+    weight: 50
+    condition:
+      feature: is_duplicate
+      op: is_true
+
+  - id: fee_outlier
+    description: "Billed amount is well above the reference fee for this procedure."
+    typology: fee_outlier
+    weight: 40
+    condition:
+      feature: fee_ratio
+      op: ">="
+      value: 1.5
+
+  - id: extreme_fee_outlier
+    description: "Billed amount is more than double the reference fee."
+    typology: fee_outlier
+    weight: 25   # stacks on fee_outlier for an even higher score
+    condition:
+      feature: fee_ratio
+      op: ">="
+      value: 2.5
+
+  - id: upcoding_mismatch
+    description: "Top-complexity procedure billed against a routine diagnosis (possible upcoding)."
+    typology: upcoding
+    weight: 45
+    condition:
+      all:
+        - feature: procedure_complexity
+          op: ">="
+          value: 3
+        - feature: diagnosis_routine
+          op: is_true
+
+  - id: excessive_units
+    description: "Units billed exceed the plausible maximum for this procedure in one day."
+    typology: phantom_billing
+    weight: 45
+    condition:
+      feature: units_over_max
+      op: ">"
+      value: 0
+
+  # Modifier rules: not enough on their own, but they raise an already-suspicious
+  # claim's score and add useful context.
+
+  - id: provider_fee_pattern
+    description: "Provider's average billing runs above the reference fee across their claims."
+    typology: provider_risk
+    weight: 15
+    condition:
+      feature: provider_avg_fee_ratio
+      op: ">="
+      value: 1.25
+
+  - id: high_cost_claim
+    description: "High absolute billed amount, which raises the stakes of any error."
+    typology: context
+    weight: 10
+    condition:
+      feature: billed_amount
+      op: ">="
+      value: 1000

@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "claimguard"
+version = "0.1.0"
+description = "Auditable insurance-claim fraud-detection POC on open-source and synthetic data"
+requires-python = ">=3.11"
+# Runtime dependencies are pinned in requirements.txt (single source of truth).
+# Install them with:  uv pip install -r requirements-dev.txt && uv pip install -e .
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+# E501: long docstrings are fine. UP042: str+Enum is intentional for Pydantic
+# compatibility. B905: zips here are over equal-length sequences by construction.
+ignore = ["E501", "UP042", "B905"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.coverage.run]
+# The Streamlit dashboard is a UI surface verified by running it, not unit tests.
+omit = ["*/dashboard/*"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["claimguard"]

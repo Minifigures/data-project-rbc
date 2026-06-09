@@ -1,0 +1,16 @@
+{
+  "claim_id": "CLM-DEMO-FRAUD",
+  "claimant_id": "MBR-00042",
+  "provider_id": "PRV-007",
+  "provider_specialty": "Dental",
+  "claim_type": "dental",
+  "procedure_code": "DN-303",
+  "diagnosis_code": "Z00.0",
+  "units": 1,
+  "billed_amount": 2400.0,
+  "allowed_amount": 900.0,
+  "date_of_service": "2025-03-10",
+  "date_submitted": "2025-03-18",
+  "place_of_service": "clinic",
+  "region": "ON"
+}
