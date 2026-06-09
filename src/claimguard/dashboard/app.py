@@ -19,9 +19,16 @@ import streamlit as st
 
 from claimguard.api.audit import AuditLog
 from claimguard.api.review_queue import ReviewQueue
+from claimguard.data.claim_note import (
+    EXTRACT_FIELDS,
+    extract_fields_deterministic,
+    render_claim_note,
+    values_match,
+)
 from claimguard.data.synthetic import GeneratorConfig, generate_claims
 from claimguard.detection.anomaly import AnomalyModel
 from claimguard.detection.fairness import disparity_report
+from claimguard.detection.llm_perception import extract_claim_fields, llm_available
 from claimguard.detection.rules import RuleEngine
 from claimguard.detection.scorer import ClaimScorer, score_dataframe
 from claimguard.detection.supervised import SupervisedModel
@@ -81,6 +88,58 @@ def _gauge(score: int, band: str) -> go.Figure:
     )
     fig.update_layout(height=260, margin=dict(l=20, r=20, t=50, b=10))
     return fig
+
+
+def _display(value: object) -> str:
+    return "" if value is None else str(value)
+
+
+def _render_claim_document(row: pd.Series, claim_id: str) -> None:
+    """The source-document view: the note a reviewer reads, plus field extraction.
+
+    Extraction is perception only (LLM if a key is set, else a deterministic
+    parser). It never moves the deterministic 0-100 score.
+    """
+    st.divider()
+    st.markdown("### 📄 Claim document")
+    st.caption(
+        "What a reviewer actually reads. The perception layer extracts fields from "
+        "this note; extraction is advisory and never moves the deterministic score."
+    )
+    note = render_claim_note(row.to_dict())
+    st.text_area("Adjuster note (free text, PII-free)", note, height=170, disabled=True, key=f"note-{claim_id}")
+
+    use_llm = False
+    if llm_available():
+        use_llm = st.checkbox(
+            "Extract with the Anthropic LLM",
+            value=False,
+            key=f"llm-{claim_id}",
+            help="On: the LLM reads the note. Off: a deterministic parser. Both stay out of the score.",
+        )
+    extracted = extract_claim_fields(note) if use_llm else extract_fields_deterministic(note)
+    source = "Anthropic LLM" if use_llm else "deterministic parser"
+    st.caption(f"Fields read from the note by the {source}. Perception only, the 0-100 score is unchanged.")
+
+    table = []
+    for field_name in EXTRACT_FIELDS:
+        record_value = row.get(field_name)
+        extracted_value = extracted.get(field_name)
+        if extracted_value is None:
+            check = "—"
+        elif values_match(record_value, extracted_value):
+            check = "✅ match"
+        else:
+            check = "⚠️ differs"
+        table.append(
+            {
+                "field": field_name,
+                "claim record": _display(record_value),
+                "read from note": _display(extracted_value),
+                "check": check,
+            }
+        )
+    st.dataframe(pd.DataFrame(table), hide_index=True, use_container_width=True)
 
 
 def main() -> None:
@@ -151,6 +210,8 @@ def main() -> None:
                             payload={"decision": decision, "reviewer": "dashboard"},
                         )
                         st.success(f"Recorded '{decision}' for {claim_id} and wrote to the audit log.")
+
+            _render_claim_document(row, str(claim_id))
 
     # --- Audit ---
     with tab_audit:
