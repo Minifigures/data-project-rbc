@@ -39,6 +39,8 @@ PRD.pdf
 PRD.md
 INTERVIEW_NOTES.md
 AWS_COWORK_HANDOFF.md
+# Any Cowork handoff doc (architecture, deploy, etc.) stays private
+*COWORK*.md
 docs/PRD*
 docs/DEMO*
 docs/REHEARSAL*
