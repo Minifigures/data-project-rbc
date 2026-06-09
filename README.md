@@ -71,7 +71,7 @@ Run on the open-source Kaggle "Healthcare Provider Fraud Detection Analysis" Med
 
 | Model | Precision | Recall | F1 | PR-AUC |
 |---|---|---|---|---|
-| rules | 0.50 | 0.00 | 0.00 | 0.39 |
+| rules (synthetic-tuned) | 0.50 | 0.00 | 0.00 | 0.39 |
 | isolation_forest | 0.47 | 0.46 | 0.47 | 0.48 |
 | logistic | 0.68 | 0.76 | 0.71 | 0.84 |
 | gradient_boosting | 0.90 | 0.75 | 0.82 | 0.91 |
