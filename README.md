@@ -65,6 +65,19 @@ Fraud is rare, so accuracy is meaningless; we report precision / recall / F1 / P
 
 **Read these honestly.** On synthetic data the rules look near-perfect because the injection and the rules were co-designed, and the supervised models approach perfect because the engineered features encode the injected signals. The genuinely informative results are (a) the supervised models recovering the **subtle** fraud the rules deliberately miss, and (b) the Isolation Forest scoring with **no labels at all**. The defensible production metric would come from the open-source labelled dataset, where the fraud was not designed by us.
 
+### Results (real open Medicare data, rohitrox)
+
+Run on the open-source Kaggle "Healthcare Provider Fraud Detection Analysis" Medicare set (provider-level fraud labels joined to claims), a 40,000-claim stratified sample with a held-out 30% test split, using the same pipeline as above:
+
+| Model | Precision | Recall | F1 | PR-AUC |
+|---|---|---|---|---|
+| rules | 0.50 | 0.00 | 0.00 | 0.39 |
+| isolation_forest | 0.47 | 0.46 | 0.47 | 0.48 |
+| logistic | 0.68 | 0.76 | 0.71 | 0.84 |
+| gradient_boosting | 0.90 | 0.75 | 0.82 | 0.91 |
+
+This is the honest, generalising result. The deterministic rules (tuned on the synthetic injection) do **not** transfer to real data: recall collapses to near zero, confirming that hand-written rules alone are insufficient on claims they were not designed for. The learned models carry the signal: gradient boosting reaches **0.82 F1 and 0.91 PR-AUC** on fraud it never saw designed, and even the label-free Isolation Forest outperforms the rules. The production takeaway for a regulated insurer: keep the deterministic, auditable rule score as the explainable floor, and rely on supervised models, gated by human review, for recall.
+
 ## Auditability, privacy, and human-in-the-loop
 
 - **Immutable audit log** (`api/audit.py`): every scoring event and human decision is appended to a **hash-chained** SQLite table. Altering any past record breaks the chain, and `verify_chain()` proves it. No PII is ever written.
