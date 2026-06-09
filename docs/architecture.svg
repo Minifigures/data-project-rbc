@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1520 1200" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="aGrey" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B7DB1"/></marker>
+    <marker id="aNavy" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#0B2545"/></marker>
+    <marker id="aBlue" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1463B0"/></marker>
+    <marker id="aSlate" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#64748B"/></marker>
+  </defs>
+
+  <rect x="0" y="0" width="1520" height="1200" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="40" y="50" font-size="34" font-weight="bold" fill="#0B2545">ClaimGuard</text>
+  <text x="40" y="78" font-size="15" fill="#475569">Auditable, explainable insurance-claim fraud detection, PII-free by design</text>
+  <rect x="40" y="90" width="1440" height="3" fill="#1463B0"/>
+
+  <!-- ============ FRAME 1: Logical pipeline ============ -->
+  <rect x="30" y="108" width="850" height="1066" rx="12" fill="#FBFCFE" stroke="#CBD5E1" stroke-width="1.5"/>
+  <rect x="30" y="108" width="220" height="30" rx="12" fill="#0B2545"/>
+  <text x="48" y="128" font-size="14" font-weight="bold" fill="#FFFFFF">FRAME 1 · LOGICAL PIPELINE</text>
+
+  <!-- L1 Data sources -->
+  <text x="60" y="166" font-size="12" font-weight="bold" fill="#1463B0">1 · DATA SOURCES (PII-free by construction)</text>
+  <rect x="90" y="176" width="330" height="66" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="255" y="203" font-size="14" font-weight="bold" fill="#0B2545" text-anchor="middle">Synthetic generator</text>
+  <text x="255" y="223" font-size="11.5" fill="#475569" text-anchor="middle">injected, labelled fraud · zero PII</text>
+  <rect x="470" y="176" width="330" height="66" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="635" y="203" font-size="14" font-weight="bold" fill="#0B2545" text-anchor="middle">Open dataset loader</text>
+  <text x="635" y="223" font-size="11.5" fill="#475569" text-anchor="middle">Kaggle Medicare set · auto-fallback to synthetic</text>
+
+  <!-- Schema pill -->
+  <rect x="245" y="270" width="400" height="40" rx="20" fill="#E8F0FB" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="445" y="295" font-size="12.5" font-weight="bold" fill="#0B2545" text-anchor="middle">One canonical claim schema · no name / address / DOB fields</text>
+  <line x1="255" y1="242" x2="360" y2="270" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+  <line x1="635" y1="242" x2="530" y2="270" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+
+  <!-- L2 Validate -->
+  <text x="60" y="346" font-size="12" font-weight="bold" fill="#1463B0">2 · VALIDATION GATE</text>
+  <line x1="445" y1="310" x2="445" y2="360" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+  <rect x="290" y="362" width="310" height="56" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="445" y="386" font-size="14" font-weight="bold" fill="#0B2545" text-anchor="middle">Validate</text>
+  <text x="445" y="405" font-size="11.5" fill="#475569" text-anchor="middle">schema + data-quality gate</text>
+
+  <!-- L3 Features -->
+  <text x="60" y="452" font-size="12" font-weight="bold" fill="#1463B0">3 · FEATURE ENGINEERING</text>
+  <line x1="445" y1="418" x2="445" y2="468" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+  <rect x="270" y="470" width="350" height="56" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="445" y="494" font-size="14" font-weight="bold" fill="#0B2545" text-anchor="middle">Feature engineering</text>
+  <text x="445" y="513" font-size="11.5" fill="#475569" text-anchor="middle">shared by rules and ML, identical inputs</text>
+
+  <!-- L4 Detection -->
+  <text x="60" y="560" font-size="12" font-weight="bold" fill="#1463B0">4 · DETECTION</text>
+  <line x1="445" y1="526" x2="445" y2="548" stroke="#5B7DB1" stroke-width="1.6"/>
+  <line x1="187" y1="548" x2="697" y2="548" stroke="#5B7DB1" stroke-width="1.6"/>
+  <line x1="187" y1="548" x2="187" y2="582" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+  <line x1="445" y1="548" x2="445" y2="582" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+  <line x1="697" y1="548" x2="697" y2="582" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+
+  <!-- Rule engine (authoritative, emphasised) -->
+  <rect x="72" y="584" width="230" height="92" rx="8" fill="#0B2545" stroke="#0B2545" stroke-width="2"/>
+  <text x="187" y="612" font-size="13.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Deterministic rule engine</text>
+  <text x="187" y="632" font-size="11" fill="#C7D6EC" text-anchor="middle">YAML policy · 0 to 100 score</text>
+  <text x="187" y="656" font-size="11" font-weight="bold" fill="#FEDF6B" text-anchor="middle">AUTHORITATIVE · auditable</text>
+
+  <!-- Isolation Forest -->
+  <rect x="330" y="584" width="230" height="92" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="445" y="612" font-size="13.5" font-weight="bold" fill="#0B2545" text-anchor="middle">Isolation Forest</text>
+  <text x="445" y="632" font-size="11" fill="#475569" text-anchor="middle">unsupervised · no labels</text>
+  <text x="445" y="656" font-size="11" font-style="italic" fill="#1463B0" text-anchor="middle">advisory signal</text>
+
+  <!-- Supervised -->
+  <rect x="582" y="584" width="232" height="92" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="698" y="612" font-size="13.5" font-weight="bold" fill="#0B2545" text-anchor="middle">Supervised model</text>
+  <text x="698" y="632" font-size="11" fill="#475569" text-anchor="middle">logistic / gradient boosting</text>
+  <text x="698" y="656" font-size="11" font-style="italic" fill="#1463B0" text-anchor="middle">advisory signal</text>
+
+  <!-- LLM optional (dashed) -->
+  <rect x="582" y="690" width="232" height="60" rx="8" fill="#F8FAFC" stroke="#64748B" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="698" y="714" font-size="12.5" font-weight="bold" fill="#334155" text-anchor="middle">Optional LLM layer</text>
+  <text x="698" y="732" font-size="10.5" fill="#64748B" text-anchor="middle">field extraction + rationale · OUT of score</text>
+
+  <!-- L5 Scorer -->
+  <text x="60" y="776" font-size="12" font-weight="bold" fill="#1463B0">5 · SCORER</text>
+  <line x1="187" y1="676" x2="430" y2="792" stroke="#0B2545" stroke-width="3" marker-end="url(#aNavy)"/>
+  <line x1="445" y1="676" x2="445" y2="792" stroke="#1463B0" stroke-width="1.6" marker-end="url(#aBlue)"/>
+  <line x1="698" y1="676" x2="462" y2="792" stroke="#1463B0" stroke-width="1.6" marker-end="url(#aBlue)"/>
+  <rect x="270" y="794" width="350" height="60" rx="8" fill="#E8F0FB" stroke="#0B2545" stroke-width="2"/>
+  <text x="445" y="819" font-size="14" font-weight="bold" fill="#0B2545" text-anchor="middle">Scorer</text>
+  <text x="445" y="838" font-size="11.5" fill="#334155" text-anchor="middle">rules = authoritative score · ML = advisory signals</text>
+
+  <!-- L6 Outputs -->
+  <text x="60" y="884" font-size="12" font-weight="bold" fill="#1463B0">6 · OUTPUTS &amp; HUMAN-IN-THE-LOOP</text>
+  <line x1="445" y1="854" x2="445" y2="876" stroke="#5B7DB1" stroke-width="1.6"/>
+  <line x1="160" y1="876" x2="740" y2="876" stroke="#5B7DB1" stroke-width="1.6"/>
+  <line x1="160" y1="876" x2="160" y2="906" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+  <line x1="360" y1="876" x2="360" y2="906" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+  <line x1="555" y1="876" x2="555" y2="906" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+  <line x1="740" y1="876" x2="740" y2="906" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+
+  <rect x="72" y="908" width="176" height="72" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="160" y="940" font-size="12.5" font-weight="bold" fill="#0B2545" text-anchor="middle">Human review</text>
+  <text x="160" y="958" font-size="11" fill="#475569" text-anchor="middle">approve / flag / dismiss</text>
+
+  <rect x="272" y="908" width="176" height="72" rx="8" fill="#FFFFFF" stroke="#0B2545" stroke-width="1.8"/>
+  <text x="360" y="936" font-size="12.5" font-weight="bold" fill="#0B2545" text-anchor="middle">Immutable audit log</text>
+  <text x="360" y="954" font-size="11" fill="#475569" text-anchor="middle">hash-chained · no PII</text>
+  <text x="360" y="970" font-size="10" fill="#1463B0" text-anchor="middle">tamper-evident</text>
+
+  <rect x="470" y="908" width="170" height="72" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="555" y="948" font-size="13" font-weight="bold" fill="#0B2545" text-anchor="middle">FastAPI service</text>
+
+  <rect x="660" y="908" width="160" height="72" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="740" y="940" font-size="12.5" font-weight="bold" fill="#0B2545" text-anchor="middle">Streamlit</text>
+  <text x="740" y="958" font-size="11.5" fill="#475569" text-anchor="middle">reviewer dashboard</text>
+
+  <!-- review queue -> audit log -->
+  <line x1="248" y1="944" x2="272" y2="944" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+
+  <!-- LLM dashed -> dashboard -->
+  <path d="M 730 750 L 730 894" fill="none" stroke="#64748B" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#aSlate)"/>
+
+  <!-- ============ FRAME 2: AWS ============ -->
+  <rect x="910" y="108" width="578" height="392" rx="12" fill="#FBFCFE" stroke="#CBD5E1" stroke-width="1.5"/>
+  <rect x="910" y="108" width="250" height="30" rx="12" fill="#0B2545"/>
+  <text x="928" y="128" font-size="14" font-weight="bold" fill="#FFFFFF">FRAME 2 · AWS DEPLOYMENT</text>
+
+  <rect x="930" y="200" width="150" height="64" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="1005" y="227" font-size="12.5" font-weight="bold" fill="#0B2545" text-anchor="middle">S3 bucket</text>
+  <text x="1005" y="246" font-size="11" fill="#475569" text-anchor="middle">incoming/ prefix</text>
+
+  <rect x="1160" y="200" width="170" height="64" rx="8" fill="#0B2545" stroke="#0B2545" stroke-width="2"/>
+  <text x="1245" y="226" font-size="12.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Lambda</text>
+  <text x="1245" y="245" font-size="10.5" fill="#C7D6EC" text-anchor="middle">claimguard-scorer (rules)</text>
+
+  <rect x="1338" y="168" width="138" height="56" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="1407" y="191" font-size="12" font-weight="bold" fill="#0B2545" text-anchor="middle">DynamoDB</text>
+  <text x="1407" y="209" font-size="10.5" fill="#475569" text-anchor="middle">claimguard-audit</text>
+
+  <rect x="1338" y="240" width="138" height="56" rx="8" fill="#FFFFFF" stroke="#1463B0" stroke-width="1.5"/>
+  <text x="1407" y="263" font-size="12" font-weight="bold" fill="#0B2545" text-anchor="middle">S3 bucket</text>
+  <text x="1407" y="281" font-size="10.5" fill="#475569" text-anchor="middle">processed/ prefix</text>
+
+  <line x1="1080" y1="232" x2="1158" y2="232" stroke="#5B7DB1" stroke-width="1.8" marker-end="url(#aGrey)"/>
+  <text x="1119" y="223" font-size="9.5" fill="#64748B" text-anchor="middle">ObjectCreated</text>
+  <line x1="1330" y1="222" x2="1336" y2="200" stroke="#5B7DB1" stroke-width="1.8" marker-end="url(#aGrey)"/>
+  <line x1="1330" y1="244" x2="1336" y2="266" stroke="#5B7DB1" stroke-width="1.8" marker-end="url(#aGrey)"/>
+
+  <text x="930" y="318" font-size="11.5" fill="#334155">Region <tspan font-weight="bold">ca-central-1</tspan> · least-privilege IAM role · tagged project=claimguard</text>
+  <text x="930" y="342" font-size="11.5" fill="#334155">Same handler runs locally on LocalStack via</text>
+  <text x="930" y="360" font-size="11.5" font-family="monospace" fill="#1463B0">AWS_ENDPOINT_URL=http://localhost:4566</text>
+  <rect x="930" y="378" width="546" height="100" rx="8" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="946" y="402" font-size="11" font-weight="bold" fill="#0B2545">Reference architecture</text>
+  <text x="946" y="422" font-size="11" fill="#475569">This slice was deployed and verified end-to-end (scorer →</text>
+  <text x="946" y="440" font-size="11" fill="#475569">DynamoDB audit item + processed output), then fully torn</text>
+  <text x="946" y="458" font-size="11" fill="#475569">down. Nothing is currently running.</text>
+
+  <!-- ============ LEGEND ============ -->
+  <rect x="910" y="520" width="578" height="196" rx="12" fill="#FBFCFE" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="930" y="548" font-size="14" font-weight="bold" fill="#0B2545">Legend</text>
+
+  <line x1="934" y1="578" x2="990" y2="578" stroke="#0B2545" stroke-width="3" marker-end="url(#aNavy)"/>
+  <text x="1004" y="582" font-size="12" fill="#334155">Authoritative deterministic score (rule engine)</text>
+
+  <line x1="934" y1="612" x2="990" y2="612" stroke="#1463B0" stroke-width="1.8" marker-end="url(#aBlue)"/>
+  <text x="1004" y="616" font-size="12" fill="#334155">Advisory ML signal (Isolation Forest, supervised)</text>
+
+  <line x1="934" y1="646" x2="990" y2="646" stroke="#64748B" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#aSlate)"/>
+  <text x="1004" y="650" font-size="12" fill="#334155">Out-of-score LLM (rationale only, never scores)</text>
+
+  <line x1="934" y1="680" x2="990" y2="680" stroke="#5B7DB1" stroke-width="1.6" marker-end="url(#aGrey)"/>
+  <text x="1004" y="684" font-size="12" fill="#334155">Pipeline data flow</text>
+
+  <rect x="938" y="697" width="44" height="14" rx="3" fill="#0B2545"/>
+  <text x="1004" y="708" font-size="12" fill="#334155">Navy = core / authoritative component</text>
+
+  <!-- ============ PRIVACY CALLOUT ============ -->
+  <rect x="910" y="736" width="578" height="120" rx="12" fill="#E8F0FB" stroke="#0B2545" stroke-width="1.5"/>
+  <rect x="910" y="736" width="8" height="120" rx="4" fill="#0B2545"/>
+  <text x="938" y="772" font-size="15" font-weight="bold" fill="#0B2545">Privacy is structural, not a policy</text>
+  <text x="938" y="800" font-size="12.5" fill="#334155">The claim schema has no field for a name, address, or date of</text>
+  <text x="938" y="820" font-size="12.5" fill="#334155">birth. It cannot leak what it cannot store. The deterministic</text>
+  <text x="938" y="840" font-size="12.5" fill="#334155">rule score is the auditable floor; ML and LLM never override it.</text>
+
+  <text x="910" y="884" font-size="10.5" fill="#94A3B8">ClaimGuard · proof of concept · github.com/Minifigures/data-project-rbc</text>
+</svg>

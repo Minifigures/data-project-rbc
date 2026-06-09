@@ -22,6 +22,8 @@ Privacy is structural, not a policy: the claim schema has **no field** for a nam
 
 ## Architecture
 
+![ClaimGuard architecture diagram](docs/architecture.png)
+
 ```mermaid
 flowchart TD
     A[Synthetic generator<br/>injected, labelled fraud] --> V
